@@ -1,4 +1,4 @@
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Ref, Watch } from 'vue-property-decorator';
 import { ApiService } from '@/services/ApiService';
 import { Album } from '@/dto/Album';
 import SubHeader from '@/components/SubHeader.vue';
@@ -30,6 +30,9 @@ export default class Browse extends Vue {
 
     forbidden = false;
 
+    @Ref('content')
+    readonly contentDiv: HTMLDivElement;
+
     private timeoutId: number;
 
     private readonly apiService = new ApiService(this);
@@ -37,6 +40,7 @@ export default class Browse extends Vue {
     @Watch('$route')
     onRouteChanged(): void {
         this.load();
+        this.scrollContentToTop();
     }
 
     created(): void {
@@ -94,6 +98,8 @@ export default class Browse extends Vue {
     }
 
     private load(): void {
+        this.album = null;
+
         this.clearTimeout();
         const ids = this.getIdsFromRoute();
         this.apiService.browse(ids)
@@ -135,6 +141,10 @@ export default class Browse extends Vue {
             return params.pathMatch.split('/');
         }
         return [];
+    }
+
+    private scrollContentToTop(): void {
+        this.contentDiv.scrollTop = 0;
     }
 
 }

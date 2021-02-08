@@ -11,7 +11,7 @@
                 </ul>
             </div>
 
-            <div class="content">
+            <div class="content" ref="content">
                 <spinner v-if="!album" class="spinner"></spinner>
 
                 <div class="album" v-if="album">
