@@ -1,10 +1,20 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VuexPersistence from 'vuex-persist';
 import { Album } from '@/dto/Album';
 import { Track } from '@/dto/Track';
 import { User } from '@/dto/User';
 
 Vue.use(Vuex);
+
+const vuexPersist = new VuexPersistence<State>({
+    storage: window.localStorage,
+    reducer: (state) => ({
+        volume: state.volume,
+        muted: state.muted,
+        shuffle: state.shuffle,
+    }),
+});
 
 export enum Mutation {
     Replace = 'replace',
@@ -137,6 +147,7 @@ export default new Vuex.Store<State>({
             return state.volume;
         },
     },
+    plugins: [vuexPersist.plugin],
 });
 
 function emptyArray(arr: any[]): boolean {
