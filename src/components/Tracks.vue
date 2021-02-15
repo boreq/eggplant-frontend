@@ -1,21 +1,21 @@
 <template>
     <ul class="tracks">
-        <li v-for="track in tracks" class="track">
-            <div class="play" :class="{ playing: isNowPlaying(track) }">
-                <a @click="playTrack(track)">
+        <li v-for="entry in entries" class="track">
+            <div class="play" :class="{ playing: isNowPlaying(entry.track) }">
+                <a @click="playTrack(entry.track)">
                     <i class="fas fa-play"></i>
                 </a>
             </div>
 
-            <div class="title" :title="track.title">
-                {{ track.title }}
+            <div class="title" :title="entry.track.title">
+                {{ entry.track.title }}
             </div>
 
             <div class="duration">
-                <div v-if="!isBeingConverted(track)">
-                    {{ formatDuration(track) }}
+                <div v-if="!isBeingConverted(entry.track)">
+                    {{ formatDuration(entry.track) }}
                 </div>
-                <div v-if="isBeingConverted(track)">
+                <div v-if="isBeingConverted(entry.track)">
                     <spinner v-tooltip="'This track has not been converted yet.'"></spinner>
                 </div>
             </div>

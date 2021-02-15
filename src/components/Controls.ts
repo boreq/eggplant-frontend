@@ -1,5 +1,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Entry, Mutation } from '@/store';
+import { Mutation } from '@/store';
+import { Entry } from '@/dto/Entry';
 import { PlaybackData } from '@/dto/PlaybackData';
 import { TextService } from '@/services/TextService';
 import { seekEvent } from '@/components/Player';

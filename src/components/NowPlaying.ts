@@ -1,6 +1,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Thumbnail from '@/components/Thumbnail.vue';
-import { Entry } from '@/store';
+import { Entry } from '@/dto/Entry';
 import { NavigationService } from '@/services/NavigationService';
 
 

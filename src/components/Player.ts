@@ -1,7 +1,8 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { Entry, Mutation } from '@/store';
+import { Mutation } from '@/store';
 import { ApiService } from '@/services/ApiService';
 import { PlaybackData } from '@/dto/PlaybackData';
+import { Entry } from '@/dto/Entry';
 import Notifications from '@/components/Notifications';
 
 export const seekEvent = 'seek';

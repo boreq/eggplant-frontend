@@ -1,7 +1,11 @@
 import { Component, Vue, Ref, Watch } from 'vue-property-decorator';
 import { ApiService } from '@/services/ApiService';
 import { Album } from '@/dto/Album';
+import { Entry } from '@/dto/Entry';
+import { Track } from '@/dto/Track';
+
 import SubHeader from '@/components/SubHeader.vue';
+import MainHeader from '@/components/MainHeader.vue';
 import Albums from '@/components/Albums.vue';
 import Tracks from '@/components/Tracks.vue';
 import Thumbnail from '@/components/Thumbnail.vue';
@@ -10,18 +14,21 @@ import Notifications from '@/components/Notifications';
 import LoginButton from '@/components/LoginButton.vue';
 import SearchInput from '@/components/forms/SearchInput.vue';
 import Spinner from '@/components/Spinner.vue';
+import Queue from '@/components/Queue.vue';
 
 
 @Component({
     components: {
         Albums,
         SubHeader,
+        MainHeader,
         Tracks,
         Thumbnail,
         NowPlaying,
         SearchInput,
         LoginButton,
         Spinner,
+        Queue,
     },
 })
 export default class Browse extends Vue {
@@ -29,6 +36,8 @@ export default class Browse extends Vue {
     album: Album = null;
 
     forbidden = false;
+
+    showQueue = false;
 
     @Ref('content')
     readonly contentDiv: HTMLDivElement;
@@ -41,6 +50,7 @@ export default class Browse extends Vue {
     onRouteChanged(): void {
         this.load();
         this.scrollContentToTop();
+        this.showQueue = false;
     }
 
     created(): void {
@@ -67,6 +77,10 @@ export default class Browse extends Vue {
         this.$router.push({path: `/browse/${path}`});
     }
 
+    toggleQueue(): void {
+        this.showQueue = !this.showQueue;
+    }
+
     get noContent(): boolean {
         if (!this.album) {
             return false;
@@ -88,6 +102,19 @@ export default class Browse extends Vue {
             return this.album.tracks.length;
         }
         return 0;
+    }
+
+    get entries(): Entry[] {
+        if (this.album && this.album.tracks) {
+            return this.album.tracks
+                .map((v: Track): Entry => {
+                    return {
+                        track: v,
+                        album: this.album,
+                    };
+                });
+        }
+        return [];
     }
 
     get totalDurationMinutes(): number {

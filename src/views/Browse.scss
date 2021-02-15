@@ -8,6 +8,7 @@ $topbar-height: 45px;
 
     .wrapper {
         height: 100%;
+        position: relative;
 
         display: grid;
         grid-template-columns: 1fr;
@@ -44,6 +45,20 @@ $topbar-height: 45px;
                     text-align: center;
                     font-size: 12px;
 
+                    a {
+                        display: block;
+                        height: 100%;
+                        width: 100%;
+
+                        &:hover {
+                            color: $primary-color;
+                        }
+                    }
+
+                    &.active {
+                        color: $primary-color;
+                    }
+
                     &:last-child {
                         border-right: none;
                     }
@@ -55,6 +70,16 @@ $topbar-height: 45px;
             padding: $padding;
             overflow-y: auto;
             grid-area: content;
+
+            &.queue {
+                z-index: 10;
+                background: $box-normal-background-color;
+                padding: 0;
+
+                .main-header {
+                    margin-top: -($box-normal-border-width);
+                }
+            }
 
             .spinner {
                 text-align: center;

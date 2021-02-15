@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersistence from 'vuex-persist';
-import { Album } from '@/dto/Album';
-import { Track } from '@/dto/Track';
+import { Entry } from '@/dto/Entry';
 import { User } from '@/dto/User';
 
 Vue.use(Vuex);
@@ -30,10 +29,6 @@ export enum Mutation {
     SetUser = 'setUser',
 }
 
-export class Entry {
-    album: Album;
-    track: Track;
-}
 
 export class State {
     entries: Entry[];

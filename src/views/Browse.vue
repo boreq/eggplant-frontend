@@ -5,6 +5,11 @@
                 <search-input class="search"></search-input>
 
                 <ul class="buttons">
+                    <li class="button" :class="{ active: showQueue }">
+                        <a @click="toggleQueue">
+                            <i class="fas fa-list-ol"></i>
+                        </a>
+                    </li>
                     <li class="button">
                         <login-button></login-button>
                     </li>
@@ -45,13 +50,18 @@
 
                 <div v-if="album && album.tracks">
                     <SubHeader text="Tracks"></SubHeader>
-                    <Tracks :tracks="album.tracks" :album="album"></Tracks>
+                    <Tracks :entries="entries"></Tracks>
                 </div>
 
                 <div v-if="album && album.albums">
                     <SubHeader text="Albums"></SubHeader>
                     <Albums :albums="album.albums" @select-album="selectAlbum"></Albums>
                 </div>
+            </div>
+
+            <div class="content queue" v-if="showQueue">
+                <main-header text="Queue"></main-header>
+                <queue></queue>
             </div>
 
             <div class="forbidden-message">

@@ -1,8 +1,9 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Album } from '@/dto/Album';
 import { Track } from '@/dto/Track';
-import { Entry, Mutation, ReplaceCommand } from '@/store';
+import { Entry } from '@/dto/Entry';
+import { Mutation, ReplaceCommand } from '@/store';
 import { TextService } from '@/services/TextService';
+
 import Spinner from '@/components/Spinner.vue';
 
 
@@ -14,10 +15,7 @@ import Spinner from '@/components/Spinner.vue';
 export default class Tracks extends Vue {
 
     @Prop()
-    tracks: Track[];
-
-    @Prop()
-    album: Album;
+    entries: Entry[];
 
     private textService = new TextService();
 
@@ -34,11 +32,13 @@ export default class Tracks extends Vue {
     }
 
     playTrack(track: Track): void {
-        const entries: Entry[] = this.tracks
-            .map(t => {
+        // I am very tired but something tells me it may be a good idea to copy
+        // this instead of using it directly
+        const entries: Entry[] = this.entries
+            .map(v => {
                 return {
-                    album: this.album,
-                    track: t,
+                    album: v.album,
+                    track: v.track,
                 };
             });
         const playingIndex = entries.findIndex(v => v.track === track);
