@@ -6,7 +6,7 @@
 
                 <ul class="buttons">
                     <li class="button" :class="{ active: showQueue }">
-                        <a @click="toggleQueue">
+                        <a @click="toggleQueue" v-tooltip="showQueue ? 'Close queue.' : 'Queue.'">
                             <i class="fas fa-list-ol"></i>
                         </a>
                     </li>

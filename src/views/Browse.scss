@@ -56,7 +56,14 @@ $topbar-height: 45px;
                     }
 
                     &.active {
-                        color: $primary-color;
+                        background-color: $primary-color;
+                        color: $box-normal-background-color;
+                        transition: background-color $transition-duration;
+
+                        a:hover {
+                            color: $box-normal-background-color;
+                            background-color: $primary-color-dark;
+                        }
                     }
 
                     &:last-child {
