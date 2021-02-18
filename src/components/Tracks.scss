@@ -18,6 +18,21 @@
             }
         }
 
+        .actions {
+            .target {
+                padding: 0 5px;
+            }
+
+            a {
+                display: block;
+                padding: 1em;
+
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+        }
+
         .title {
             flex: 1;
             white-space: nowrap;
@@ -27,6 +42,8 @@
 
         .duration {
             margin-left: 1em;
+            width: 30px;
+            text-align: left;
         }
     }
 }

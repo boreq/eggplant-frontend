@@ -11,6 +11,32 @@
                 {{ entry.track.title }}
             </div>
 
+            <dropdown class="actions" ref="dropdowns">
+                <template v-slot:trigger>
+                    <div class="target">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </template>
+                <template v-slot:content>
+                    <dropdown-element>
+                        <a @click="addToQueue(entry.track)">
+                            Add to queue
+                        </a>
+                    </dropdown-element>
+                    <dropdown-element>
+                        <a @click="removeFromQueue(entry.track)">
+                            Remove from queue
+                        </a>
+                    </dropdown-element>
+                    <dropdown-divider></dropdown-divider>
+                    <dropdown-element>
+                        <a @click="goToAlbum(entry)">
+                            Go to album
+                        </a>
+                    </dropdown-element>
+                </template>
+            </dropdown>
+
             <div class="duration">
                 <div v-if="!isBeingConverted(entry.track)">
                     {{ formatDuration(entry.track) }}
