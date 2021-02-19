@@ -17,6 +17,8 @@ const vuexPersist = new VuexPersistence<State>({
 
 export enum Mutation {
     Replace = 'replace',
+    Append = 'append',
+    Remove = 'remove',
     Play = 'play',
     Pause = 'pause',
     Previous = 'previous',
@@ -45,6 +47,14 @@ export class ReplaceCommand {
     playingIndex: number;
 }
 
+export class AppendCommand {
+    entry: Entry;
+}
+
+export class RemoveCommand {
+    entry: Entry;
+}
+
 export class SetVolumeCommand {
     volume: number;
 }
@@ -63,6 +73,15 @@ export default new Vuex.Store<State>({
         [Mutation.Replace](state: State, command: ReplaceCommand): void {
             state.entries = command.entries;
             state.playingIndex = command.playingIndex;
+        },
+        [Mutation.Append](state: State, command: AppendCommand): void {
+            state.entries.push(command.entry);
+        },
+        [Mutation.Remove](state: State, command: RemoveCommand): void {
+            const index = state.entries.indexOf(command.entry);
+            if (index >= 0) {
+                state.entries.splice(index, 1);
+            }
         },
         [Mutation.Play](state: State): void {
             if (!emptyArray(state.entries)) {

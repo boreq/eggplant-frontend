@@ -1,7 +1,7 @@
 <template>
     <ul class="tracks">
-        <li v-for="entry in entries" class="track">
-            <div class="play" :class="{ playing: isNowPlaying(entry.track) }">
+        <li v-for="(entry, index) in entries" class="track">
+            <div class="play" :class="{ playing: isNowPlaying(index, entry.track) }">
                 <a @click="playTrack(entry.track)">
                     <i class="fas fa-play"></i>
                 </a>
@@ -19,12 +19,12 @@
                 </template>
                 <template v-slot:content>
                     <dropdown-element>
-                        <a @click="addToQueue(entry.track)">
+                        <a @click="addToQueue(entry)">
                             Add to queue
                         </a>
                     </dropdown-element>
                     <dropdown-element v-if="queueMode">
-                        <a @click="removeFromQueue(entry.track)">
+                        <a @click="removeFromQueue(entry)">
                             Remove from queue
                         </a>
                     </dropdown-element>

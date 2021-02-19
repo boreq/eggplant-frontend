@@ -1,8 +1,9 @@
 import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
 import { Track } from '@/dto/Track';
 import { Entry } from '@/dto/Entry';
-import { Mutation, ReplaceCommand } from '@/store';
+import { Mutation, ReplaceCommand, AppendCommand, RemoveCommand } from '@/store';
 import { TextService } from '@/services/TextService';
+import { NavigationService } from '@/services/NavigationService';
 
 import Spinner from '@/components/Spinner.vue';
 import Dropdown from '@/components/Dropdown.vue';
@@ -30,11 +31,16 @@ export default class Tracks extends Vue {
     dropdowns: Dropdown[];
 
     private textService = new TextService();
+    private navigationService = new NavigationService();
 
-    isNowPlaying(track: Track): boolean {
+    isNowPlaying(index: number, track: Track): boolean {
         const nowPlaying: Entry = this.$store.getters.nowPlaying;
         if (nowPlaying) {
-            return track.id === nowPlaying.track.id;
+            if (this.queueMode) {
+                return index === this.$store.state.playingIndex;
+            } else {
+                return track.id === nowPlaying.track.id;
+            }
         }
         return false;
     }
@@ -61,15 +67,25 @@ export default class Tracks extends Vue {
         this.$store.commit(Mutation.Replace, command);
     }
 
-    addToQueue(_: Track): void {
+    addToQueue(entry: Entry): void {
+        const command: AppendCommand = {
+            entry: entry,
+        };
+        this.$store.commit(Mutation.Append, command);
         this.closeDropdowns();
     }
 
-    removeFromQueue(_: Track): void {
+    removeFromQueue(entry: Entry): void {
+        const command: RemoveCommand = {
+            entry: entry,
+        };
+        this.$store.commit(Mutation.Remove, command);
         this.closeDropdowns();
     }
 
-    goToAlbum(_: Entry): void {
+    goToAlbum(entry: Entry): void {
+        const target = this.navigationService.getBrowse(entry.album);
+        this.$router.push(target);
         this.closeDropdowns();
     }
 
