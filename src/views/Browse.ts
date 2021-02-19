@@ -3,7 +3,7 @@ import { ApiService } from '@/services/ApiService';
 import { Album } from '@/dto/Album';
 import { Entry } from '@/dto/Entry';
 import { Track } from '@/dto/Track';
-import { Mutation, ReplaceCommand } from '@/store';
+import { Mutation, ReplaceCommand, AppendCommand } from '@/store';
 
 import SubHeader from '@/components/SubHeader.vue';
 import MainHeader from '@/components/MainHeader.vue';
@@ -16,6 +16,9 @@ import LoginButton from '@/components/LoginButton.vue';
 import SearchInput from '@/components/forms/SearchInput.vue';
 import Spinner from '@/components/Spinner.vue';
 import Queue from '@/components/Queue.vue';
+import Dropdown from '@/components/Dropdown.vue';
+import DropdownElement from '@/components/DropdownElement.vue';
+import DropdownDivider from '@/components/DropdownDivider.vue';
 
 
 @Component({
@@ -30,6 +33,9 @@ import Queue from '@/components/Queue.vue';
         LoginButton,
         Spinner,
         Queue,
+        Dropdown,
+        DropdownElement,
+        DropdownDivider,
     },
 })
 export default class Browse extends Vue {
@@ -39,6 +45,9 @@ export default class Browse extends Vue {
     forbidden = false;
 
     showQueue = false;
+
+    @Ref('dropdown')
+    readonly dropdown: Dropdown;
 
     @Ref('content')
     readonly contentDiv: HTMLDivElement;
@@ -95,6 +104,22 @@ export default class Browse extends Vue {
             playingIndex: 0,
         };
         this.$store.commit(Mutation.Replace, command);
+    }
+
+    addAlbumToQueue(): void {
+        const entries: Entry[] = this.entries
+            .map(v => {
+                return {
+                    album: v.album,
+                    track: v.track,
+                };
+            });
+        const command: AppendCommand = {
+            entries: entries,
+        };
+        this.$store.commit(Mutation.Append, command);
+        this.dropdown.close();
+        Notifications.pushSuccess(this, 'Album added to queue.');
     }
 
     get noContent(): boolean {

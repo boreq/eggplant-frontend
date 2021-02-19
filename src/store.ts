@@ -48,7 +48,7 @@ export class ReplaceCommand {
 }
 
 export class AppendCommand {
-    entry: Entry;
+    entries: Entry[];
 }
 
 export class RemoveCommand {
@@ -72,15 +72,34 @@ export default new Vuex.Store<State>({
     mutations: {
         [Mutation.Replace](state: State, command: ReplaceCommand): void {
             state.entries = command.entries;
-            state.playingIndex = command.playingIndex;
+
+            if (command.playingIndex < 0) {
+                state.playingIndex = 0;
+            } else if (command.playingIndex > command.entries.length - 1) {
+                state.playingIndex = command.entries.length - 1;
+            } else {
+                state.playingIndex = command.playingIndex;
+            }
         },
         [Mutation.Append](state: State, command: AppendCommand): void {
-            state.entries.push(command.entry);
+            state.entries = state.entries.concat(command.entries);
+
+            if (state.playingIndex === undefined || state.playingIndex === null) {
+                state.playingIndex = 0;
+            }
         },
         [Mutation.Remove](state: State, command: RemoveCommand): void {
             const index = state.entries.indexOf(command.entry);
             if (index >= 0) {
                 state.entries.splice(index, 1);
+            }
+
+            if (state.entries.length > 0) {
+                if (state.playingIndex > state.entries.length - 1) {
+                    state.playingIndex = state.entries.length - 1;
+                }
+            } else {
+                state.playingIndex = undefined;
             }
         },
         [Mutation.Play](state: State): void {

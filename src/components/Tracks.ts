@@ -49,7 +49,7 @@ export default class Tracks extends Vue {
         return !track.duration;
     }
 
-    playTrack(track: Track): void {
+    playTrack(index: number): void {
         // I am very tired but something tells me it may be a good idea to copy
         // this instead of using it directly
         const entries: Entry[] = this.entries
@@ -59,17 +59,16 @@ export default class Tracks extends Vue {
                     track: v.track,
                 };
             });
-        const playingIndex = entries.findIndex(v => v.track === track);
         const command: ReplaceCommand = {
             entries: entries,
-            playingIndex: playingIndex,
+            playingIndex: index,
         };
         this.$store.commit(Mutation.Replace, command);
     }
 
     addToQueue(entry: Entry): void {
         const command: AppendCommand = {
-            entry: entry,
+            entries: [entry],
         };
         this.$store.commit(Mutation.Append, command);
         this.closeDropdowns();

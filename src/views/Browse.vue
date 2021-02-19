@@ -53,9 +53,20 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="secondary">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </a>
+                                <dropdown ref="dropdown">
+                                    <template v-slot:trigger>
+                                        <a class="secondary">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </a>
+                                    </template>
+                                    <template v-slot:content>
+                                        <dropdown-element>
+                                            <a @click="addAlbumToQueue">
+                                                Add album to queue
+                                            </a>
+                                        </dropdown-element>
+                                    </template>
+                                </dropdown>
                             </li>
                         </ul>
                     </div>

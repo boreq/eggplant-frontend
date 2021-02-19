@@ -16,6 +16,8 @@ export default class Player extends Vue {
 
     private readonly apiService = new ApiService(this);
 
+    private currentNowPlaying: Entry = null;
+
     get nowPlaying(): Entry {
         return this.$store.getters.nowPlaying;
     }
@@ -42,8 +44,17 @@ export default class Player extends Vue {
 
     @Watch('nowPlaying')
     onNowPlayingChanged(): void {
-        this.audio.src = this.nowPlayingUrl;
-        this.play();
+        if (!this.nowPlaying) {
+            this.currentNowPlaying = this.nowPlaying;
+            this.pause();
+            return;
+        }
+
+        if (!this.currentNowPlaying || this.currentNowPlaying !== this.nowPlaying) {
+            this.currentNowPlaying = this.nowPlaying;
+            this.audio.src = this.nowPlayingUrl;
+            this.play();
+        }
     }
 
     @Watch('paused')
@@ -107,6 +118,11 @@ export default class Player extends Vue {
     private play(): void {
         this.$store.commit(Mutation.Play);
         this.audio.play();
+    }
+
+    private pause(): void {
+        this.$store.commit(Mutation.Pause);
+        this.audio.pause();
     }
 
 }

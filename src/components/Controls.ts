@@ -28,6 +28,10 @@ export default class Controls extends Vue {
     }
 
     get currentTime(): string {
+        if (!this.nowPlaying) {
+            return null;
+        }
+
         if (this.playbackData && this.playbackData.currentTime) {
             return this.textService.formatTime(this.playbackData.currentTime);
         }
@@ -35,6 +39,10 @@ export default class Controls extends Vue {
     }
 
     get duration(): string {
+        if (!this.nowPlaying) {
+            return null;
+        }
+
         if (this.playbackData && this.playbackData.duration) {
             return this.textService.formatTime(this.playbackData.duration);
         }

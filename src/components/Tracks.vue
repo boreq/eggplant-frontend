@@ -2,7 +2,7 @@
     <ul class="tracks">
         <li v-for="(entry, index) in entries" class="track">
             <div class="play" :class="{ playing: isNowPlaying(index, entry.track) }">
-                <a @click="playTrack(entry.track)" class="button">
+                <a @click="playTrack(index)" class="button">
                     <i class="icon fas fa-play"></i>
                 </a>
 
