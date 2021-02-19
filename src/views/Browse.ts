@@ -3,6 +3,7 @@ import { ApiService } from '@/services/ApiService';
 import { Album } from '@/dto/Album';
 import { Entry } from '@/dto/Entry';
 import { Track } from '@/dto/Track';
+import { Mutation, ReplaceCommand } from '@/store';
 
 import SubHeader from '@/components/SubHeader.vue';
 import MainHeader from '@/components/MainHeader.vue';
@@ -79,6 +80,21 @@ export default class Browse extends Vue {
 
     toggleQueue(): void {
         this.showQueue = !this.showQueue;
+    }
+
+    playAlbum(): void {
+        const entries: Entry[] = this.entries
+            .map(v => {
+                return {
+                    album: v.album,
+                    track: v.track,
+                };
+            });
+        const command: ReplaceCommand = {
+            entries: entries,
+            playingIndex: 0,
+        };
+        this.$store.commit(Mutation.Replace, command);
     }
 
     get noContent(): boolean {

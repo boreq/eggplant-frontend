@@ -26,6 +26,9 @@
                 color: $primary-color;
             }
 
+            &:active {
+                color: $primary-color-dark;
+            }
         }
 
         &:hover .play, .play.playing {

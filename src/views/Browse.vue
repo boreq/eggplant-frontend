@@ -45,6 +45,19 @@
                         <div class="details" v-if="numberOfTracks > 0">
                             {{ numberOfTracks }} tracks, {{ totalDurationMinutes }} minutes
                         </div>
+
+                        <ul class="actions" v-if="numberOfTracks > 0">
+                            <li>
+                                <a class="play" @click="playAlbum">
+                                    <i class="icon fas fa-play"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="secondary">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
