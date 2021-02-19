@@ -28,17 +28,26 @@ $content-z-index: 11;
     }
 
     .wrapper {
-        position: relative;
-
-        .content {
+        .arrow, .content {
             z-index: $content-z-index;
+        }
+
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid $box-normal-background-color;
+
+            position: absolute;
+            margin-top: -5px;
+            margin-left: -5px;
         }
 
         .content {
             position: absolute;
-            bottom: 0;
-            right: -20px;
             width: 200px;
+            transform: translate(-80%, 0);
             border: 1px solid $box-normal-background-color;
             border-radius: $box-border-radius;
             box-shadow: $box-normal-box-shadow;
@@ -47,7 +56,6 @@ $content-z-index: 11;
             margin: 0;
             list-style-type: none;
             font-size: 14px;
-            overflow: hidden;
 
             li {
                 padding: 0;

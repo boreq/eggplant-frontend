@@ -4,7 +4,7 @@
             Your queue is empty.
         </div>
 
-        <tracks :entries="entries"></tracks>
+        <tracks :entries="entries" :queueMode="true"></tracks>
     </div>
 </template>
 <script lang="ts" src="./Queue.ts"></script>

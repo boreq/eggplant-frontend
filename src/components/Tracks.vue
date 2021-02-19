@@ -23,13 +23,13 @@
                             Add to queue
                         </a>
                     </dropdown-element>
-                    <dropdown-element>
+                    <dropdown-element v-if="queueMode">
                         <a @click="removeFromQueue(entry.track)">
                             Remove from queue
                         </a>
                     </dropdown-element>
-                    <dropdown-divider></dropdown-divider>
-                    <dropdown-element>
+                    <dropdown-divider v-if="queueMode"></dropdown-divider>
+                    <dropdown-element v-if="queueMode">
                         <a @click="goToAlbum(entry)">
                             Go to album
                         </a>

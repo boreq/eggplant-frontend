@@ -23,6 +23,9 @@ export default class Tracks extends Vue {
     @Prop()
     entries: Entry[];
 
+    @Prop()
+    queueMode: boolean;
+
     @Ref('dropdowns')
     dropdowns: Dropdown[];
 
