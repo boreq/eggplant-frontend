@@ -4,6 +4,7 @@ import { Entry } from '@/dto/Entry';
 import { Mutation, ReplaceCommand, AppendCommand, RemoveCommand } from '@/store';
 import { TextService } from '@/services/TextService';
 import { NavigationService } from '@/services/NavigationService';
+import Notifications from '@/components/Notifications';
 
 import Spinner from '@/components/Spinner.vue';
 import Dropdown from '@/components/Dropdown.vue';
@@ -72,6 +73,7 @@ export default class Tracks extends Vue {
         };
         this.$store.commit(Mutation.Append, command);
         this.closeDropdowns();
+        Notifications.pushSuccess(this, 'Song added to queue.');
     }
 
     removeFromQueue(entry: Entry): void {

@@ -4,6 +4,7 @@ import { Album } from '@/dto/Album';
 import { Entry } from '@/dto/Entry';
 import { Track } from '@/dto/Track';
 import { Mutation, ReplaceCommand, AppendCommand } from '@/store';
+import Notifications from '@/components/Notifications';
 
 import SubHeader from '@/components/SubHeader.vue';
 import MainHeader from '@/components/MainHeader.vue';
@@ -11,7 +12,6 @@ import Albums from '@/components/Albums.vue';
 import Tracks from '@/components/Tracks.vue';
 import Thumbnail from '@/components/Thumbnail.vue';
 import NowPlaying from '@/components/NowPlaying.vue';
-import Notifications from '@/components/Notifications';
 import LoginButton from '@/components/LoginButton.vue';
 import SearchInput from '@/components/forms/SearchInput.vue';
 import Spinner from '@/components/Spinner.vue';
