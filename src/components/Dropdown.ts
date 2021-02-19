@@ -26,11 +26,8 @@ export default class Dropdown extends Vue {
         this.refreshPositions();
     }
 
-    mounted(): void {
-        this.refreshPositions();
-    }
-
     open(): void {
+        this.refreshPositions();
         this.isOpen = true;
     }
 
