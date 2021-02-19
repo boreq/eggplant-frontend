@@ -12,14 +12,41 @@
 
         .play {
             margin: 0 1em 0 0;
+            width: 11px;
+
+            .button {
+                display: none;
+            }
+
+            .number {
+                text-align: left;
+            }
 
             &.playing, &:hover {
                 color: $primary-color;
+            }
+
+        }
+
+        &:hover .play, .play.playing {
+            .button {
+                display: block;
+            }
+
+            .number {
+                display: none;
+            }
+        }
+
+        &:hover {
+            .actions .target {
+                display: block;
             }
         }
 
         .actions {
             .target {
+                display: none;
                 padding: 0 5px;
             }
 
