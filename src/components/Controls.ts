@@ -4,6 +4,7 @@ import { Entry } from '@/dto/Entry';
 import { PlaybackData } from '@/dto/PlaybackData';
 import { TextService } from '@/services/TextService';
 import { seekEvent } from '@/components/Player';
+
 import ProgressBar from '@/components/ProgressBar.vue';
 import Volume from '@/components/Volume.vue';
 import Indicator from '@/components/Indicator.vue';

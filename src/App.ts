@@ -1,12 +1,14 @@
 import { Component, Vue } from 'vue-property-decorator';
+import { PlaybackData } from '@/dto/PlaybackData';
+import { Mutation } from '@/store';
+import { ApiService } from '@/services/ApiService';
+
 import Controls from '@/components/Controls.vue';
 import Player from '@/components/Player.vue';
 import Notifications from '@/components/Notifications.vue';
 import ConversionStatus from '@/components/ConversionStatus.vue';
 import NowPlaying from '@/components/NowPlaying.vue';
-import { PlaybackData } from '@/dto/PlaybackData';
-import { Mutation } from '@/store';
-import { ApiService } from '@/services/ApiService';
+import MediaSession from '@/components/MediaSession.vue';
 
 
 @Component({
@@ -16,6 +18,7 @@ import { ApiService } from '@/services/ApiService';
         ConversionStatus,
         Notifications,
         NowPlaying,
+        MediaSession,
     },
 })
 export default class App extends Vue {
