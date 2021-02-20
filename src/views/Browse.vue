@@ -81,6 +81,11 @@
                     <SubHeader text="Albums"></SubHeader>
                     <Albums :albums="album.albums" @select-album="selectAlbum"></Albums>
                 </div>
+
+                <div v-if="album && !album.albums && !album.tracks" class="no-content-message">
+                    The music library is empty or you do not have permissions
+                    to view any tracks or albums.
+                </div>
             </div>
 
             <div class="content queue" v-if="showQueue">
