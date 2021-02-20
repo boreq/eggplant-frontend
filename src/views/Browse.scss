@@ -175,6 +175,7 @@ $topbar-height: 45px;
                                 display: block;
                                 text-align: center;
                                 transition: transform $transition-duration;
+                                border-radius: 100%;
 
                                 &:hover {
                                     transform: scale(1.2);
@@ -185,7 +186,6 @@ $topbar-height: 45px;
                                 width: 24px;
                                 height: 24px;
                                 font-size: 24px;
-                                border-radius: 24px;
                                 line-height: 1;
                                 text-align: center;
                                 background-color: $primary-color;
@@ -204,7 +204,6 @@ $topbar-height: 45px;
                             }
 
                             .secondary {
-                                border-radius: 14px;
                                 width: 14px;
                                 height: 14px;
                                 border: 1px solid $box-normal-border-color;
