@@ -76,4 +76,24 @@
             text-align: left;
         }
     }
+
+    @media (any-hover: none) {
+        .track {
+            .play {
+                .button {
+                    display: block;
+                }
+
+                .number {
+                    display: none;
+                }
+            }
+
+            .actions {
+                .target {
+                    display: block;
+                }
+            }
+        }
+    }
 }
