@@ -271,11 +271,20 @@ $topbar-height: 45px;
         .wrapper {
             .content {
                 .album {
+                    flex-flow: column nowrap;
                     text-align: center;
-                    justify-content: center;
+                    align-items: center;
 
                     .artwork {
-                        display: none;
+                        margin: 0 0 2em;
+                        width: 100px;
+                        height: 100px;
+                    }
+
+                    .info {
+                        display: flex;
+                        flex-flow: column nowrap;
+                        align-items: center;
                     }
                 }
             }
