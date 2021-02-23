@@ -8,7 +8,7 @@ $disabled-color: #ddd;
     display: block;
     text-align: center;
     font-weight: $font-weight-bold;
-    transition: 200ms all;
+    transition: transform $transition-duration;
     border-radius: $box-border-radius;
 
     &:hover {

@@ -14,7 +14,7 @@ $image-size-small: 100px;
             width: $image-size;
             height: $image-size;
             margin: 0 auto;
-            transition: all $transition-duration;
+            transition: transform $transition-duration;
 
             img {
                 height: 100%;
