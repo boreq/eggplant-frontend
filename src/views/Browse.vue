@@ -90,7 +90,7 @@
 
             <div class="content queue" v-if="showQueue">
                 <main-header text="Queue"></main-header>
-                <queue></queue>
+                <queue @navigation="onQueueNavigation"></queue>
             </div>
 
             <div class="forbidden-message">

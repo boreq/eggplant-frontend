@@ -33,4 +33,8 @@ export default class Queue extends Vue {
         return !this.entries || this.entries.length === 0;
     }
 
+    onNavigation(): void {
+        this.$emit('navigation');
+    }
+
 }

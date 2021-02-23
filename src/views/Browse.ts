@@ -122,6 +122,11 @@ export default class Browse extends Vue {
         Notifications.pushSuccess(this, 'Album added to queue.');
     }
 
+    onQueueNavigation(): void {
+        this.scrollContentToTop();
+        this.showQueue = false;
+    }
+
     get noContent(): boolean {
         if (!this.album) {
             return false;
@@ -160,7 +165,12 @@ export default class Browse extends Vue {
 
     get totalDurationMinutes(): number {
         if (this.album && this.album.tracks) {
-            return Math.ceil(this.album.tracks.reduce((acc, track) => track.duration ? acc + track.duration : acc, 0) / 60);
+            return Math.ceil(
+                this.album.tracks.reduce(
+                    (acc, track) => track.duration ? acc + track.duration : acc,
+                    0,
+                ) / 60,
+            );
         }
         return 0;
     }

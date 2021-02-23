@@ -86,8 +86,11 @@ export default class Tracks extends Vue {
 
     goToAlbum(entry: Entry): void {
         const location = this.navigationService.getBrowse(entry.album);
-        this.$router.push(location);
-        this.closeDropdowns();
+        this.$router.push(location)
+            .finally(() => {
+                this.closeDropdowns();
+                this.$emit('navigation');
+            });
     }
 
     formatDuration(track: Track): string {
