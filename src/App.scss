@@ -66,7 +66,7 @@ a {
         right: 0;
     }
 
-    @media (max-width: $responsive-threshold-mobile), (max-height: 600px) {
+    @media (max-width: $responsive-threshold-mobile), (max-height: 700px) {
         > .content {
             padding: 20px;
 
