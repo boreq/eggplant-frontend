@@ -92,6 +92,10 @@ export default new Vuex.Store<State>({
             const index = state.entries.indexOf(command.entry);
             if (index >= 0) {
                 state.entries.splice(index, 1);
+
+                if (state.playingIndex > index) {
+                    state.playingIndex -= 1;
+                }
             }
 
             if (state.entries.length > 0) {
