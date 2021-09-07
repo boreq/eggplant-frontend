@@ -21,6 +21,11 @@ export default class MediaSession extends Vue {
     onNowPlayingChanged(): void {
         const mediaSession = this.mediaSession;
         if (mediaSession) {
+            if (!this.nowPlaying) {
+                mediaSession.metadata = null;
+                return;
+            }
+
             const metadata = {
                 title: this.nowPlaying.track.title,
                 album: this.nowPlaying.album.title,
