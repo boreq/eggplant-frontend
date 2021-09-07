@@ -58,6 +58,7 @@ export default class Browse extends Vue {
 
     @Watch('$route')
     onRouteChanged(): void {
+        this.album = null;
         this.load();
         this.scrollContentToTop();
         this.showQueue = false;
@@ -214,8 +215,6 @@ export default class Browse extends Vue {
     }
 
     private load(): void {
-        this.album = null;
-
         this.clearTimeout();
         const ids = this.getIdsFromRoute();
         this.apiService.browse(ids)
