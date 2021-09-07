@@ -205,7 +205,7 @@ export default class Browse extends Vue {
         }
 
         for (const track of this.album.tracks) {
-            if (track === this.nowPlaying.track) {
+            if (track.id === this.nowPlaying.track.id) {
                 return true;
             }
         }
