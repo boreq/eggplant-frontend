@@ -45,7 +45,7 @@ export default class Player extends Vue {
     @Watch('nowPlaying')
     onNowPlayingChanged(): void {
         if (!this.nowPlaying) {
-            this.currentNowPlaying = this.nowPlaying;
+            this.currentNowPlaying = null;
             this.pause();
             return;
         }
@@ -89,6 +89,7 @@ export default class Player extends Vue {
     }
 
     onEnded(): void {
+        this.currentNowPlaying = null;
         this.$store.commit(Mutation.Next);
     }
 
