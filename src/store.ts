@@ -168,10 +168,10 @@ export default new Vuex.Store<State>({
     },
     getters: {
         nowPlaying: (state: State): Entry => {
-            if (emptyArray(state.entries)) {
-                return null;
-            }
-            return state.entries[state.playingIndex];
+            return nowPlaying(state);
+        },
+        nowPlayingPaused: (state: State): boolean => {
+            return state.paused || !nowPlaying(state);
         },
         volume: (state: State): number => {
             if (state.muted) {
@@ -182,6 +182,13 @@ export default new Vuex.Store<State>({
     },
     plugins: [vuexPersist.plugin],
 });
+
+function nowPlaying(state: State): Entry {
+    if (emptyArray(state.entries)) {
+        return null;
+    }
+    return state.entries[state.playingIndex];
+}
 
 function emptyArray(arr: any[]): boolean {
     return !arr || arr.length === 0;

@@ -183,19 +183,17 @@ $topbar-height: 45px;
                             }
 
                             .play {
-                                width: 24px;
-                                height: 24px;
-                                font-size: 24px;
+                                $play-font-size: 16px;
+
+                                width: $play-font-size;
+                                height: $play-font-size;
+                                font-size: $play-font-size;
+                                padding: 1em;
                                 line-height: 1;
                                 text-align: center;
                                 background-color: $primary-color;
                                 border: 1px solid $primary-color;
                                 color: #fff;
-
-                                i {
-                                    margin-right: -5px;
-                                }
-
 
                                 &:active {
                                     background-color: $primary-color-dark;

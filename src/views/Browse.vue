@@ -48,8 +48,9 @@
 
                         <ul class="actions" v-if="numberOfTracks > 0">
                             <li>
-                                <a class="play" @click="playAlbum">
-                                    <i class="icon fas fa-play"></i>
+                                <a class="play" @click="onPlayAlbumButtonClicked">
+                                    <i class="icon fas fa-play" v-if="!showPlayAlbumButtonAsPause"></i>
+                                    <i class="icon fas fa-pause" v-else></i>
                                 </a>
                             </li>
                             <li>

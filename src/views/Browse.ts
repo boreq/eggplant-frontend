@@ -91,19 +91,27 @@ export default class Browse extends Vue {
         this.showQueue = !this.showQueue;
     }
 
-    playAlbum(): void {
-        const entries: Entry[] = this.entries
-            .map(v => {
-                return {
-                    album: v.album,
-                    track: v.track,
-                };
-            });
-        const command: ReplaceCommand = {
-            entries: entries,
-            playingIndex: 0,
-        };
-        this.$store.commit(Mutation.Replace, command);
+    onPlayAlbumButtonClicked(): void {
+        if (this.anyAlbumSongIsCurrentlyNowPlaying()) {
+            if (this.paused()) {
+                this.$store.commit(Mutation.Play);
+            } else {
+                this.$store.commit(Mutation.Pause);
+            }
+        } else {
+            const entries: Entry[] = this.entries
+                .map(v => {
+                    return {
+                        album: v.album,
+                        track: v.track,
+                    };
+                });
+            const command: ReplaceCommand = {
+                entries: entries,
+                playingIndex: 0,
+            };
+            this.$store.commit(Mutation.Replace, command);
+        }
     }
 
     addAlbumToQueue(): void {
@@ -173,6 +181,36 @@ export default class Browse extends Vue {
             );
         }
         return 0;
+    }
+
+    get showPlayAlbumButtonAsPause(): boolean {
+        if (!this.anyAlbumSongIsCurrentlyNowPlaying()) {
+            return false;
+        }
+
+        return !this.paused();
+    }
+
+    get nowPlaying(): Entry {
+        return this.$store.getters.nowPlaying;
+    }
+
+    private paused(): boolean {
+        return this.$store.getters.nowPlayingPaused;
+    }
+
+    private anyAlbumSongIsCurrentlyNowPlaying(): boolean {
+        if (!this.nowPlaying) {
+            return false;
+        }
+
+        for (const track of this.album.tracks) {
+            if (track === this.nowPlaying.track) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private load(): void {

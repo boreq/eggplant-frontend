@@ -58,7 +58,7 @@ export default class Controls extends Vue {
     }
 
     get paused(): boolean {
-        return this.$store.state.paused || !this.nowPlaying;
+        return this.$store.getters.nowPlayingPaused;
     }
 
     get shuffle(): boolean {
