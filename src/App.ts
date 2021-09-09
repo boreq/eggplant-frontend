@@ -46,6 +46,7 @@ export default class App extends Vue {
             } else {
                 this.$store.commit(Mutation.Pause);
             }
+            event.preventDefault();
         }
     }
 

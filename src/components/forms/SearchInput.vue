@@ -4,7 +4,8 @@
             <i class="fas fa-search"></i>
         </div>
         <input type="text" placeholder="Search"
-               :value="value" @input="$emit('input', $event.target.value)">
+               :value="value" @input="$emit('input', $event.target.value)"
+               @keydown.stop>
     </div>
 </template>
 <script lang="ts" src="./SearchInput.ts"></script>
