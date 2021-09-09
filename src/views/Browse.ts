@@ -24,9 +24,9 @@ import DropdownElement from '@/components/DropdownElement.vue';
 import DropdownDivider from '@/components/DropdownDivider.vue';
 
 enum View {
-    Browse,
-    Search,
-    Queue,
+    Browse = 'browse',
+    Search = 'search',
+    Queue = 'queue',
 }
 
 
@@ -79,9 +79,13 @@ export default class Browse extends Vue {
     @Watch('searchQuery')
     onSearchQueryChanged(): void {
         if (this.searchQuery) {
-            this.switchView(View.Search);
+            if (this.view !== View.Search) {
+                this.switchView(View.Search);
+            }
         } else {
-            this.switchView(View.Browse);
+            if (this.view === View.Search) {
+                this.switchView(View.Browse);
+            }
         }
     }
 
