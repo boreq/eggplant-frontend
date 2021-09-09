@@ -7,9 +7,11 @@
                 </div>
             </div>
         </div>
-        <div class="now-playing">
-            <now-playing></now-playing>
-        </div>
+        <transition name="fade">
+            <div class="now-playing" v-if="showNowPlaying">
+                <now-playing></now-playing>
+            </div>
+        </transition>
         <div class="controls">
             <controls :playbackData="playbackData"></controls>
         </div>
