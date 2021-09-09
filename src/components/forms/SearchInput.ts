@@ -6,4 +6,8 @@ export default class SearchInput extends Vue {
     @Prop()
     value: any;
 
+    get showCloseButton(): boolean {
+        return !!this.value;
+    }
+
 }

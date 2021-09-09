@@ -3,8 +3,12 @@
         <div class="icon">
             <i class="fas fa-search"></i>
         </div>
+            <a class="close" v-if="showCloseButton" @click="$emit('input', '')">
+                <i class="fas fa-times"></i>
+            </a>
         <input type="text" placeholder="Search"
-               :value="value" @input="$emit('input', $event.target.value)"
+               maxlength="100" :value="value"
+               @input="$emit('input', $event.target.value)"
                @keydown.stop>
     </div>
 </template>
