@@ -54,10 +54,6 @@ export default class App extends Vue {
         this.playbackData = playbackData;
     }
 
-    get showNowPlaying(): boolean {
-        return !!this.$store.getters.nowPlaying;
-    }
-
     get isCsd(): boolean {
         const now = new Date();
         const day = now.getDate();
