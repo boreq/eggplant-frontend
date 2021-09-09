@@ -1,7 +1,8 @@
-import { Album } from '@/dto/Album';
 import { Track } from '@/dto/Track';
+import { BasicAlbum } from '@/dto/BasicAlbum';
 
 export class Entry {
-    album: Album;
+    album: BasicAlbum;
     track: Track;
 }
+

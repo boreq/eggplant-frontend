@@ -3,7 +3,6 @@ import { Track } from '@/dto/Track';
 import { Entry } from '@/dto/Entry';
 import { Mutation, ReplaceCommand, AppendCommand, RemoveCommand } from '@/store';
 import { TextService } from '@/services/TextService';
-import { NavigationService } from '@/services/NavigationService';
 import Notifications from '@/components/Notifications';
 
 import Spinner from '@/components/Spinner.vue';
@@ -28,11 +27,13 @@ export default class Tracks extends Vue {
     @Prop()
     queueMode: boolean;
 
+    @Prop()
+    showGoToAlbum: boolean;
+
     @Ref('dropdowns')
     dropdowns: Dropdown[];
 
-    private textService = new TextService();
-    private navigationService = new NavigationService();
+    private readonly textService = new TextService();
 
     isNowPlaying(index: number, track: Track): boolean {
         const nowPlaying: Entry = this.$store.getters.nowPlaying;
@@ -111,12 +112,8 @@ export default class Tracks extends Vue {
     }
 
     goToAlbum(entry: Entry): void {
-        const location = this.navigationService.getBrowse(entry.album);
-        this.$router.push(location)
-            .finally(() => {
-                this.closeDropdowns();
-                this.$emit('navigation');
-            });
+        this.closeDropdowns();
+        this.$emit('select-album', entry.album);
     }
 
     formatDuration(track: Track): string {

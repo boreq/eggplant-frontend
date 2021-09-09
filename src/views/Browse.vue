@@ -2,7 +2,7 @@
     <div class="browse" :class="{forbidden: forbidden}">
         <div class="wrapper">
             <div class="topbar">
-                <search-input class="search"></search-input>
+                <search-input class="search" v-model="searchQuery"></search-input>
 
                 <ul class="buttons">
                     <li class="button" :class="{ active: showQueue }">
@@ -21,7 +21,7 @@
 
                 <div class="album" v-if="album">
                     <div class="artwork">
-                        <thumbnail :album="album"></thumbnail>
+                        <thumbnail :album="basicAlbum"></thumbnail>
                     </div>
 
                     <div class="info">
@@ -78,9 +78,9 @@
                     <Tracks :entries="entries"></Tracks>
                 </div>
 
-                <div v-if="album && album.albums">
+                <div v-if="albums">
                     <SubHeader text="Albums"></SubHeader>
-                    <Albums :albums="album.albums" @select-album="selectAlbum"></Albums>
+                    <Albums :albums="albums" @select-album="selectAlbum"></Albums>
                 </div>
 
                 <div v-if="album && !album.albums && !album.tracks" class="no-content-message">
@@ -91,7 +91,12 @@
 
             <div class="content queue" v-if="showQueue">
                 <main-header text="Queue"></main-header>
-                <queue @navigation="onQueueNavigation"></queue>
+                <queue @select-album="selectAlbum"></queue>
+            </div>
+
+            <div class="content search" v-if="showSearch">
+                <main-header text="Search"></main-header>
+                <search :query="searchQuery" @select-album="selectAlbum"></search>
             </div>
 
             <div class="forbidden-message">

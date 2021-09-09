@@ -1,5 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Album } from '@/dto/Album';
+import { BasicAlbum } from '@/dto/BasicAlbum';
 import Thumbnail from '@/components/Thumbnail.vue';
 
 
@@ -11,9 +11,9 @@ import Thumbnail from '@/components/Thumbnail.vue';
 export default class Albums extends Vue {
 
     @Prop()
-    albums: Album[];
+    albums: BasicAlbum[];
 
-    selectAlbum(album: Album): void {
+    selectAlbum(album: BasicAlbum): void {
         this.$emit('select-album', album);
     }
 

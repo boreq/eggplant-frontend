@@ -77,7 +77,7 @@ $topbar-height: 45px;
             overflow-y: auto;
             grid-area: content;
 
-            &.queue {
+            &.queue, &.search {
                 z-index: 10;
                 background: $box-normal-background-color;
                 padding: 0;

@@ -39,7 +39,7 @@ export default class MediaSession extends Vue {
             };
 
             if (this.nowPlaying.album.thumbnail) {
-                const url = this.apiService.thumbnailUrl(this.nowPlaying.album);
+                const url = this.apiService.thumbnailUrl(this.nowPlaying.album.thumbnail);
                 metadata.artwork = [
                     {
                         src: url,

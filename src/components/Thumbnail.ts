@@ -1,5 +1,5 @@
 import { Component, Prop, Ref, Vue } from 'vue-property-decorator';
-import { Album } from '@/dto/Album';
+import { BasicAlbum } from '@/dto/BasicAlbum';
 import { ApiService } from '@/services/ApiService';
 import Spinner from '@/components/Spinner.vue';
 
@@ -12,7 +12,7 @@ import Spinner from '@/components/Spinner.vue';
 export default class Thumbnail extends Vue {
 
     @Prop()
-    album: Album;
+    album: BasicAlbum;
 
     @Ref()
     image: HTMLImageElement;
@@ -25,7 +25,7 @@ export default class Thumbnail extends Vue {
 
     get thumbnailUrl(): string {
         if (this.album) {
-            return this.apiService.thumbnailUrl(this.album);
+            return this.apiService.thumbnailUrl(this.album.thumbnail);
         }
         return null;
     }

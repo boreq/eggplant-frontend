@@ -1,6 +1,8 @@
 import { Component, Vue, Ref, Watch } from 'vue-property-decorator';
 import { ApiService } from '@/services/ApiService';
+import { NavigationService } from '@/services/NavigationService';
 import { Album } from '@/dto/Album';
+import { BasicAlbum } from '@/dto/BasicAlbum';
 import { Entry } from '@/dto/Entry';
 import { Track } from '@/dto/Track';
 import { Mutation, ReplaceCommand, AppendCommand } from '@/store';
@@ -16,9 +18,16 @@ import LoginButton from '@/components/LoginButton.vue';
 import SearchInput from '@/components/forms/SearchInput.vue';
 import Spinner from '@/components/Spinner.vue';
 import Queue from '@/components/Queue.vue';
+import Search from '@/components/Search.vue';
 import Dropdown from '@/components/Dropdown.vue';
 import DropdownElement from '@/components/DropdownElement.vue';
 import DropdownDivider from '@/components/DropdownDivider.vue';
+
+enum View {
+    Browse,
+    Search,
+    Queue,
+}
 
 
 @Component({
@@ -33,6 +42,7 @@ import DropdownDivider from '@/components/DropdownDivider.vue';
         LoginButton,
         Spinner,
         Queue,
+        Search,
         Dropdown,
         DropdownElement,
         DropdownDivider,
@@ -41,10 +51,11 @@ import DropdownDivider from '@/components/DropdownDivider.vue';
 export default class Browse extends Vue {
 
     album: Album = null;
-
     forbidden = false;
 
-    showQueue = false;
+    searchQuery: string = null;
+
+    view: View = View.Browse;
 
     @Ref('dropdown')
     readonly dropdown: Dropdown;
@@ -55,13 +66,23 @@ export default class Browse extends Vue {
     private timeoutId: number;
 
     private readonly apiService = new ApiService(this);
+    private readonly navigationService = new NavigationService();
 
     @Watch('$route')
     onRouteChanged(): void {
         this.album = null;
         this.load();
         this.scrollContentToTop();
-        this.showQueue = false;
+        this.switchView(View.Browse);
+    }
+
+    @Watch('searchQuery')
+    onSearchQueryChanged(): void {
+        if (this.searchQuery) {
+            this.switchView(View.Search);
+        } else {
+            this.switchView(View.Browse);
+        }
     }
 
     created(): void {
@@ -81,15 +102,18 @@ export default class Browse extends Vue {
         return `/browse/${path}`;
     }
 
-    selectAlbum(album: Album): void {
-        const ids = this.album.parents ? this.album.parents.map(v => v.id) : [];
-        ids.push(album.id);
-        const path = ids.join('/');
-        this.$router.push({path: `/browse/${path}`});
+    selectAlbum(album: BasicAlbum): void {
+        this.switchView(View.Browse);
+        const location = this.navigationService.getBrowse(album);
+        this.$router.push(location);
     }
 
     toggleQueue(): void {
-        this.showQueue = !this.showQueue;
+        if (this.view === View.Queue) {
+            this.switchView(View.Browse);
+        } else {
+            this.switchView(View.Queue);
+        }
     }
 
     onPlayAlbumButtonClicked(): void {
@@ -131,9 +155,17 @@ export default class Browse extends Vue {
         Notifications.pushSuccess(this, 'Album added to queue.');
     }
 
-    onQueueNavigation(): void {
+    onSearchNavigation(): void {
         this.scrollContentToTop();
-        this.showQueue = false;
+        this.searchQuery = null;
+    }
+
+    get showSearch(): boolean {
+        return this.view === View.Search;
+    }
+
+    get showQueue(): boolean {
+        return this.view === View.Queue;
     }
 
     get noContent(): boolean {
@@ -165,11 +197,29 @@ export default class Browse extends Vue {
                 .map((v: Track): Entry => {
                     return {
                         track: v,
-                        album: this.album,
+                        album: this.toBasicAlbum(this.album),
                     };
                 });
         }
         return [];
+    }
+
+    get basicAlbum(): BasicAlbum {
+        return this.toBasicAlbum(this.album);
+    }
+
+    get albums(): BasicAlbum[] {
+        if (!this.album || !this.album.albums) {
+            return null;
+        }
+
+        return this.album.albums
+            .map(v => {
+                const basic = this.toBasicAlbum(v);
+                basic.path = this.album.parents ? this.album.parents.map(p => p.id) : [];
+                basic.path.push(v.id);
+                return basic;
+            });
     }
 
     get totalDurationMinutes(): number {
@@ -260,6 +310,22 @@ export default class Browse extends Vue {
 
     private scrollContentToTop(): void {
         this.contentDiv.scrollTop = 0;
+    }
+
+    private toBasicAlbum(album: Album): BasicAlbum {
+        return {
+            title: album.title,
+            path: album.parents ? album.parents.map(v => v.id) : [],
+            thumbnail: album.thumbnail,
+        };
+    }
+
+    private switchView(view: View): void {
+        if (view !== View.Search) {
+            this.searchQuery = null;
+        }
+
+        this.view = view;
     }
 
 }

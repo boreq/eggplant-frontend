@@ -2,6 +2,7 @@ import { Album } from '@/dto/Album';
 import axios, { AxiosResponse } from 'axios'; // do not add { }, some webshit bs?
 import { Track } from '@/dto/Track';
 import { Stats } from '@/dto/Stats';
+import { Thumbnail } from '@/dto/Thumbnail';
 import { CommandInitialize } from '@/dto/CommandInitialize';
 import { LoginCommand } from '@/dto/LoginCommand';
 import { LoginResponse } from '@/dto/LoginResponse';
@@ -59,6 +60,18 @@ export class ApiService {
         return this.axios.get<Album>(process.env.VUE_APP_API_PREFIX + url);
     }
 
+    search(query: string): Promise<AxiosResponse<any>> {
+        const url = `search`;
+        return this.axios.get<any>(
+            process.env.VUE_APP_API_PREFIX + url,
+            {
+                params: {
+                    query: query,
+                },
+            },
+        );
+    }
+
     stats(): Promise<AxiosResponse<Stats>> {
         const url = `stats`;
         return this.axios.get<Stats>(process.env.VUE_APP_API_PREFIX + url);
@@ -69,8 +82,8 @@ export class ApiService {
         return process.env.VUE_APP_API_PREFIX + url;
     }
 
-    thumbnailUrl(album: Album): string {
-        const url = `thumbnail/${album.thumbnail.fileId}`;
+    thumbnailUrl(thumbnail: Thumbnail): string {
+        const url = `thumbnail/${thumbnail.fileId}`;
         return process.env.VUE_APP_API_PREFIX + url;
     }
 

@@ -1,15 +1,10 @@
 import { Location } from 'vue-router';
-import { Album } from '@/dto/Album';
+import { BasicAlbum } from '@/dto/BasicAlbum';
 
 export class NavigationService {
 
-    getBrowse(album: Album): Location {
-        const ids: string[] = [];
-        if (album.parents) {
-            album.parents
-                .map(v => v.id)
-                .forEach(id => ids.push(id));
-        }
+    getBrowse(album: BasicAlbum): Location {
+        const ids = album.path ? album.path : [];
         const path = ids.join('/');
         return { path: `/browse/${path}` };
     }

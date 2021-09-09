@@ -1,5 +1,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Entry } from '@/dto/Entry';
+import { BasicAlbum } from '@/dto/BasicAlbum';
 
 import MainHeader from '@/components/MainHeader.vue';
 import FormInput from '@/components/forms/FormInput.vue';
@@ -33,8 +34,8 @@ export default class Queue extends Vue {
         return !this.entries || this.entries.length === 0;
     }
 
-    onNavigation(): void {
-        this.$emit('navigation');
+    onSelectAlbum(album: BasicAlbum): void {
+        this.$emit('select-album', album);
     }
 
 }
