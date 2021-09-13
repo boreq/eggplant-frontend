@@ -168,6 +168,17 @@ export default class Browse extends Vue {
         return this.view === View.Search;
     }
 
+    get showAlbum(): boolean {
+        if (this.album) {
+            const ids = this.getIdsFromRoute();
+            if (ids.length === 0) {
+                return !!this.album.thumbnail || !!this.album.tracks;
+            }
+            return true;
+        }
+        return false;
+    }
+
     get showQueue(): boolean {
         return this.view === View.Queue;
     }

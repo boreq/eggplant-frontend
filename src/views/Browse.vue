@@ -19,7 +19,7 @@
             <div class="content" ref="content">
                 <spinner v-if="!album" class="spinner"></spinner>
 
-                <div class="album" v-if="album">
+                <div class="album" v-if="showAlbum">
                     <div class="artwork">
                         <thumbnail :album="basicAlbum"></thumbnail>
                     </div>
