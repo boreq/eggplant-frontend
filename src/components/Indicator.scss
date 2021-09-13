@@ -1,7 +1,10 @@
 .indicator {
     $baseWidth: 4px;
-    position: relative;
+    //position: relative;
     height: 32px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
 
     .bar {
         height: $baseWidth;
@@ -13,12 +16,5 @@
         &.enabled {
             background-color: $primary-color;
         }
-    }
-
-    .content {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
     }
 }
