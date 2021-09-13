@@ -1,13 +1,16 @@
 html, body {
     margin: 0;
     padding: 0;
-}
-
-html {
     font-family: 'Raleway', sans-serif;
     font-size: 12px;
     color: $box-normal-text-color;
-    background: url('./assets/images/background.jpg') no-repeat center bottom fixed;
+}
+
+body {
+    background-image: url('./assets/images/background.jpg');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-attachment: scroll;
     background-size: cover;
 }
 
