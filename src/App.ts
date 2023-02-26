@@ -6,7 +6,6 @@ import { ApiService } from '@/services/ApiService';
 import Controls from '@/components/Controls.vue';
 import Player from '@/components/Player.vue';
 import Notifications from '@/components/Notifications.vue';
-import ConversionStatus from '@/components/ConversionStatus.vue';
 import NowPlaying from '@/components/NowPlaying.vue';
 import MediaSession from '@/components/MediaSession.vue';
 
@@ -15,7 +14,6 @@ import MediaSession from '@/components/MediaSession.vue';
     components: {
         Controls,
         Player,
-        ConversionStatus,
         Notifications,
         NowPlaying,
         MediaSession,

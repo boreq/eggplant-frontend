@@ -15,7 +15,6 @@
         </div>
         <player @playback-data="onPlaybackData($event)"></player>
         <notifications class="notifications"></notifications>
-        <conversion-status class="conversion-status"></conversion-status>
         <media-session></media-session>
     </div>
 </template>
